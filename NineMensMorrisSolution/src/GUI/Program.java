@@ -24,9 +24,10 @@ import javax.swing.JTextField;
  * @author Orsolya
  */
 
-public class NineMensMorrisGUI extends JFrame {
 
-    private static final long serialVersionUID = -514606427157467570L;
+public class Program extends JFrame {
+
+    //private static final long serialVersionUID = -514606427157467570L;
     private BoardState currentGame;
     private NineMensMorrisBoard boardPanel;
     private JPanel controls;
@@ -36,6 +37,7 @@ public class NineMensMorrisGUI extends JFrame {
     private JLabel statusLabel;
     private AlphaBetaPruning solver;
     private volatile MoveExecutorCallback moveExecutor;
+
 
     private class MoveExecutor implements MoveExecutorCallback {
 
@@ -84,6 +86,7 @@ public class NineMensMorrisGUI extends JFrame {
         }
     }
 
+    
     private void startNewGame() {
         if (moveExecutor != null) {
             moveExecutor.terminate();
@@ -98,8 +101,19 @@ public class NineMensMorrisGUI extends JFrame {
         solver = new AlphaBetaPruning(currentGame, maxDepth, maxTime);
         boardPanel.makeMove();
     }
+    
+        
+    private void setMaxTimeTextField(String maxTimeValue)
+    {
+        maxTimeTextField.setText(maxTimeValue);
+    }
+    
+    private void setMaxDepthTextField(String maxDepthValue)
+    {
+        maxDepthTextField.setText(maxDepthValue);
+    }
 
-    public NineMensMorrisGUI() {
+    public Program(int maxDepth, int maxTime) {
         super("Nine Men's Morris");
 
         boardPanel = new NineMensMorrisBoard();
@@ -129,6 +143,10 @@ public class NineMensMorrisGUI extends JFrame {
         controls.add(statusLabel);
 
         add(controls, BorderLayout.SOUTH);
+        
+        setMaxDepthTextField(String.valueOf(maxDepth));
+        setMaxTimeTextField(String.valueOf(maxTime));
+
 
         startNewGame();
     }
@@ -136,11 +154,56 @@ public class NineMensMorrisGUI extends JFrame {
     /**
      * @param args
      */
+  
     public static void main(String[] args) {
-        JFrame game = new NineMensMorrisGUI();
-
+       int maxDepth=5;
+       int maxTime=5;
+      	if(args.length!=4)
+        {
+	    
+            System.out.println("Error at number of parameters\nYou have to give 4 parameter: e.g. -d N -t N");
+            if(args.length>=4)
+            {
+                 System.out.println("Too much parameter");
+                 System.exit(0);
+            }
+           
+        }
+        if(args.length<=4){
+        
+            if (args.length > 0) {
+                for (int i = 0; i < args.length; i++) {
+                    if (args[i].equals("-d")) {
+                       if (i == args.length - 1) {
+                            System.out.println("You must give the maxdepth value!");
+                            System.exit(1);
+                        }
+                        else
+                        {
+                            maxDepth= Integer.parseInt(args[i+1]);
+                            System.out.println("maxdepth=" + maxDepth);
+                        }
+                    }
+                    if (args[i].equals("-t")) {
+                       if (i == args.length - 1) {
+                            System.out.println("You must the value of thinking time!");
+                            System.exit(1);
+                        }
+                        else
+                        {   
+                            
+                            maxTime= Integer.parseInt(args[i+1]);
+                            System.out.println("maxTime=" + maxTime);
+                        }
+                    }
+                }
+            }
+        }
+        if(args.length==4){
+        JFrame game = new Program(maxDepth,maxTime);
         game.setSize(600, 700);
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setVisible(true);
+        }
     }
 }
