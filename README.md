@@ -15,8 +15,10 @@ A player reaches phase 3 when she is left with only 3 pieces. She can now move a
 A player wins by reducing her opponent to two pieces, or by leaving her without a legal move.
 
 ### Heuristic/Evaluation Function for Nine Men’s Morris
-
-![Nine Men's Morris board](https://kartikkukreja.files.wordpress.com/2014/03/nine_mens_morris_board.png?style=centerme)
+<p align="center">
+  <img width="460" height="300" src="https://kartikkukreja.files.wordpress.com/2014/03/nine_mens_morris_board.png">
+  <p>Nine Men's Morris board</p>
+</p>
 
 I wrote a bot for Nine Men’s Morris for a contest and here, I describe the evaluation functions I used for each of the three phases. The evaluation functions were linear functions of features of the game state. Following features were considered to calculate the evaluation functions:
 
@@ -51,3 +53,10 @@ Evaluation function for Phase 1 = 18 * (1) + 26 * (2) + 1 * (3) + 9 * (4) + 10 *
 Evaluation function for Phase 2 = 14 * (1) + 43 * (2) + 10 * (3) + 11 * (4) + 8 * (7) + 1086 * (8)
 
 Evaluation function for Phase 3 = 16 * (1) + 10 * (5) + 1 * (6) + 1190 * (8)
+
+
+
+
+
+
+source: https://kartikkukreja.wordpress.com/2014/03/17/heuristicevaluation-function-for-nine-mens-morris/
